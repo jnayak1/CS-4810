@@ -1,0 +1,29 @@
+ul.before_after_images li{
+	display: inline;
+}
+
+figure {
+	display: inline-block;
+}
+
+p{
+	font-size: 25px;
+}
+
+li{
+	font-size: 25px;
+}
+
+h4{
+	font-size: 30px;
+}
+
+h3{
+	font-size: 35px;
+}
+h2{
+	font-size: 40px;
+}
+h1{
+	font-size: 45px;
+}

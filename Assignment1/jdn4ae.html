@@ -1,0 +1,517 @@
+<html lang="en">
+<head>
+	<title>Assignment 1 - jdn4ae</title>
+	<link href="jdn4ae_HTML/template.css" rel="stylesheet">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		function zoom() {
+            document.body.style.zoom = "50%";
+        }
+		$(document).ready(function(){
+			zoom();
+	 	});
+	</script>
+</head>
+<body>
+	<h1>Assignment 1 by Jesse Nayak</h1>
+	<p>jdn4ae</p>
+	<p>Developed on Mac OS X 10.10.5 with Sublime Text 2, using g++ compiler.</p>
+	<p>1 day late</p>
+	<h3>Introduction</h3>
+	<p> This project was completed for 
+		<a href="http://www.cs.virginia.edu/~connelly/class/2016/intro_gfx/index.html" target="_blank">
+			CS 4810: Introduction to Computer Graphics</a>
+		at the
+		<a href="http://www.cs.virginia.edu/" target="_blank">
+			Univeristy of Virgina</a>. 
+		For this assignment, I created a C++ command line application to perform several image processing tasks.
+	</p>
+	<h3>Feature List:</h3>
+	<ul class="feature_list">
+		<li><a href="#add_random_noise">AddRandomNoise</a></li>
+		<li><a href="#brighten">Brighten</a></li>
+		<li><a href="#luminance">Luminance</a></li>
+		<li><a href="#contrast">Contrast</a></li>
+		<li><a href="#saturate">Saturate</a></li>
+		<li><a href="#crop">Crop</a></li>
+		<li><a href="#quantize">Quantize</a></li>
+		<li><a href="#random_dither">RandomDither</a></li>
+		<li><a href="#ordered_dither_2x2">OrderedDither2x2</a></li>
+		<li><a href="#floyd_steinberg_dither">FloydSteinbergDither</a></li>
+		<li><a href="#blur_3x3">Blur3x3</a></li>
+		<li><a href="#edge_detect_3x3">EdgeDetect3x3</a></li>
+		<li><a href="#nearest_sample">NearestSample</a></li>
+		<li><a href="#bilinear_sample">BilinearSample</a></li>
+		<li><a href="#gaussian_sample">GaussianSample</a></li>
+		<li><a href="#scale_nearest">ScaleNearest</a></li>
+		<li><a href="#scale_bilinear">ScaleBilinear</a></li>
+		<li><a href="#scale_gaussian">ScaleGaussian</a></li>
+		<li><a href="#rotate_nearest">RotateNearest</a></li>
+		<li><a href="#rotate_bilinear">RotateBilinear</a></li>
+		<li><a href="#rotate_gaussian">RotateGaussian</a></li>
+		<li><a href="#composite">SetAlpha</a></li>
+		<li><a href="#beier_neely_morphing">BeierNeelyMorphing</a></li>
+	</ul>
+	<h3>Features:</h3>
+	<div class="feature" id="add_random_noise">
+		<h4>AddRandomNoise</h4>
+		<p>This tool adds a random amount of grey-scale noise to each pixel in the image. This means that, for each pixel, the same amount is added the r,g, and b components. The parameter determines the range of noise [-p*255, p*255] added to each pixel and is a value from 0 to 1.</p>
+		<p>Parameters: 0.5</p>
+		<ul class = "before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original1.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/add_random_noise.jpg">
+					<figcaption>Image with random noise</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+
+	<div class="feature" id="brighten">
+		<h4>Brighten</h4>
+		<p>This tool brightens or darkens the image by scaling the r,g, and b components of each pixel by the amount specified by the parameter.</p>
+		<p>Parameters: 1.5</p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original2.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/brighten.jpg">
+					<figcaption>Brightened image</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="luminance">
+		<h4>Grey</h4>
+		<p>This tool converts an image to greyscale. An image appears grey if the r,g, and b values are all equal for each pixel. Thus, a greyscale image can be specified using just one component or channel. This channel is the luminance of the pixel.</p>
+		<p>Parameters: N/A</p>
+		<ul class="before_after_images">
+			<li>
+				<li><figure>
+					<img src="./jdn4ae_HTML/original3.jpg">
+					<figcaption>Original image</figcaption>
+				</figure></li>
+			</li>
+			<li>
+				<li><figure>
+					<img src="./jdn4ae_HTML/luminance.jpg">
+					<figcaption>Grey image</figcaption>
+				</figure></li>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="contrast">
+		<h4>Contrast</h4>
+		<p>This tool increases or decreases the contrast of the image by scaling the deviation of the luminance of each pixel from the average luminance the image. </p>
+		<p>Parameters: 2.0</p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original4.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/contrast.jpg">
+					<figcaption>Image with increased contrast</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="saturate">
+		<h4>Saturate</h4>
+		<p>This tool increases or decreases the saturation of the image by scaling the deviation of the r,g, and b components from the luminance of each pixel.</p>
+		<p>Parameters: 100</p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original2.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/saturate.jpg">
+					<figcaption>Image with increase saturation</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="crop">
+		<h4>Crop</h4>
+		<p>This tool writes the rectangular portion of the image specified by the parameters to a new file.</p>
+		<p>Parameters: 200 100 649 600 </p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original2.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/crop.jpg">
+					<figcaption>Cropped image</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="quantize">
+		<h4>Quanitze</h4>
+		<p>This tool reduces the number of bits the r,g, and b components of each pixel is represented with. This causes the color gamut to decrease, as fewer colors can be represented. A typical image uses 8 bits per r,g and b component.</p>
+		<p>Parameters: 3</p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original3.jpg">
+					<figcaption>Original image</figcaption>
+				</figure>
+			</li>
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/quantize.jpg">
+					<figcaption>Quantized image</figcaption>
+				</figure>
+			</li>
+		</ul>
+	</div>
+	<div class="feature" id="random_dither">
+		<h4>RandomDither</h4>
+		<p>
+			This tool adds random noise to the image, then quantizes it to the number of bits specified by the parameter. The amount of noise added to the image is 0.5/2^(bits-1). The random noise is added to help disguise the quantization errors.
+		</p>
+		<p>Parameters: 2</p>
+		<ul class="before_after_images">
+			<li>
+				<figure>
+					<img src="./jdn4ae_HTML/original4.jpg">
+					<figcaption>Original image</figcaption>
+				</figure></li>
+				<li><figure>
+					<img src="./jdn4ae_HTML/random_dither.jpg">
+					<figcaption>Image with random dither</figcaption>
+				</figure></li>
+			</ul>
+		</div>
+		<div class="feature" id="ordered_dither_2x2">
+			<h4>OrderedDither2x2</h4>
+			<p>This tool quantizes the image, then applies a filter where, for each component of a pixel, if the quantization error for the component is greater than the amount specified in the filter, the component is to be rounded up to the nearest value representable by the number of bits the image was quantized to. Otherwise, the component is to rounded down to the nearest representable number by the number of bits.</p>
+			<p>Parameters: 1</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original1.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/ordered_dither.jpg">
+						<figcaption>Image with ordered dither</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="floyd_steinberg_dither">
+			<h4>FloydSteinbergDither</h4>
+			<p>This tool quantizes the image, then implements an algorithm developed by Robert Floyd and Louis Steinberg that diffuses the quantization error among neighboring pixels.</p>
+			<p>Parameters: 1</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original2.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/floyd_steinberg_dither.jpg">
+						<figcaption>Image with Floyd Steinberg Dither</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="blur_3x3">
+			<h4>Blur3x3</h4>
+			<p>This tool uses a filter to blur the image. Each pixel is a weighted average of itself and its neighboring pixels.</p>
+			<p>Parameters: none</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original2.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/blur.jpg">
+						<figcaption>Blurred image</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="edge_detect_3x3">
+			<h4>EdgeDetect3x3</h4>
+			<p>This tool detects edges in an image by using a filter that causes a pixel to darken if it's neighboring pixel are similar and brighten if the neighboring pixels are very different.</p>
+			<p>Parameters: none</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original4.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/edge_detect.jpg">
+						<figcaption>Image with edge detection</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="nearest_sample">
+			<h4>NearestSample</h4>
+			<p>This tool takes in floating point x and y coordinates and will return the nearest pixel in the image to those coordinates.</p>
+		</div>
+		<div class="feature" id="bilinear_sample">
+			<h4>BilinearSample</h4>
+			<p>This tool takes in floating point x and y coordinates and will return a pixel whose components are a weighted average of the neighboring pixels based on their distance from the input coordinates. </p>
+		</div>
+		<div class="feature" id="gaussian_sample">
+			<h4>GaussianSample</h4>
+			<p>This tool take in floating point x and y coordinates and will return a pixel whose components are a weighted average of the neighboring pixels within the radius based on the gaussian function (a 3-Dimensional function with normal distribution). This tool is not functioning properly.</p>
+		</div>
+		<div class="feature" id="scale_nearest">
+			<h4>ScaleNearest</h4>
+			<p>This tool scales an image up or down using nearest neighbor sampling.</p>
+			<p>Parameters: .5 then 2</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original1.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_nearest_down.jpg">
+						<figcaption>Scaled down image using nearest neighbor sampling</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_nearest_up.jpg">
+						<figcaption>Scaled up image using nearest neighbor sampling</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="scale_bilinear">
+			<h4>ScaleBilinear</h4>
+			<p>This tool scales an image up or down using bilinear sampling.</p>
+			<p>Parameters: .5 then 2 </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original2.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_bilinear_down.jpg">
+						<figcaption>Scaled down image using bilinear sampling</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_bilinear_up.jpg">
+						<figcaption>Scaled up image using bilinear sampling</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="scale_gaussian">
+			<h4>ScaleGaussian</h4>
+			<p></p>
+			<p>Parameters: </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original3.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_gaussian_down.jpg">
+						<figcaption>Scaled down image using Gaussian sampling</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/scale_gaussian_up.jpg">
+						<figcaption>Scaled up image using Gaussian sampling</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="rotate_nearest">
+			<h4>RotateNearest</h4>
+			<p>This tool rotates an image about its center pixel using nearest neighbor sampling.</p>
+			<p>Parameters: 30</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original4.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/rotate_nearest.jpg">
+						<figcaption>Image rotated 30 degrees with nearest neighbor sampling</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="rotate_bilinear">
+			<h4>RotateBilinear</h4>
+			<p>This tool rotates an image about its center pixel using bilinear sampling.</p>
+			<p>Parameters: 30</p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original1.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/rotate_bilinear.jpg">
+						<figcaption>Image rotated 30 degrees with bilinear sampling</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="rotate_gaussian">
+			<h4>RotateGaussian</h4>
+			<p>Gaussian sample not functioning properly.</p>
+			<p>Parameters: </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original2.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li><figure>
+					<img src="./jdn4ae_HTML/rotate_gaussian.jpg">
+					<figcaption>Image rotated 30 degrees with gaussian sampling</figcaption>
+				</figure></li>
+			</ul>
+		</div>
+		<div class="feature" id="composite">
+			<h4>Composite</h4>
+			<p>This tool is used to blend two images together using the alpha channel. Since JPEG and BMP files do not have an alpha channel, a matte must be used to represent the alpha channel.</p>
+			<p>Parameters: </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original1.jpg">
+						<figcaption>Original image 1</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original5.jpg">
+						<figcaption>Original image 2</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/matte.jpg">
+						<figcaption>Matte used</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/set_alpha.jpg">
+						<figcaption>Composed image</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="fun_filter">
+			<h4>FunFilter</h4>
+			<p>This tool causes objects near the center of the image to buldge.</p>
+			<p>Parameters: none </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original1.jpg">
+						<figcaption>Original image</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/fun_filter.jpg">
+						<figcaption>Image with fun filter</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="feature" id="beier_neely_morphing">
+			<h4>Beier-Neely Morphing</h4>
+			<p> Not implemented</p>
+			<p>Parameters: </p>
+			<ul class="before_after_images">
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/original_morph_1.jpg">
+						<figcaption>Original image 1</figcaption>
+					</figure>
+					<figure>
+						<img src="./jdn4ae_HTML/original_morph_2.jpg">
+						<figcaption>Original image 2</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure>
+						<img src="./jdn4ae_HTML/beir_neely_morphing.jpg">
+						<figcaption>Morphed image</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+		<div class="acknownledements">
+			<H3>Acknowledgements:</H3>
+			<ul>
+				<li>
+					<a href="http://kathrinswobodaphotography.com" target="_blank"> 
+						Kathrin Swoboda Photoraphy:
+					</a>
+					<p>All sample images courtesy of Kathrin Swoboda Photography. Used with permission.</p>
+				</li>
+				<li>
+					<a href="http://www.cs.virginia.edu/~connelly/class/2016/intro_gfx/Assignment1/Assignment1.zip">
+						Code Skeleton:
+					</a>
+					<p>I used this code skeleton with command line interface, jpeg and bitmap libraries.</p>
+				</li>
+			</ul>
+		</div>
+	</body>
+	</html>
